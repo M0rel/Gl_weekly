@@ -38,6 +38,7 @@ inline uint32_t pin_port_to_gpio(enum kit_port port)
 
 void io_pin_set(kit_pin pin, bool value);
 void io_init(kit_pin pin, bool in_out);
+void io_pin_toggle(kit_pin pin);
 
 // Leds
 extern const kit_pin led_orange;

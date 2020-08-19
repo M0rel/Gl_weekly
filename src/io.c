@@ -44,16 +44,13 @@ void io_pin_set(kit_pin pin, bool value)
 		gpio_clear(pin_port_to_gpio(pin.port), (1 << pin.pin));
 }
 
-/*
-void io_all_init()
+void io_pin_toggle(kit_pin pin) 
 {
-	// Initialize all pins to analog, low-speed, af0, push-pull, no-pullup
-	// Analog mode will allow for lower power consumption
-	for (int i = PORTA; set_all && (i <= SK_PORTH); i++) {
-		uint32_t port = pin_port_to_gpio(i);
-		gpio_mode_setup(port, GPIO_MODE_ANALOG, GPIO_PUPD_NONE, 0xffff);
-		gpio_set_output_options(port, GPIO_OTYPE_PP, GPIO_OSPEED_2MHZ, 0xffff);
-		gpio_set_af(port, 0, 0xffff);
-	}
+	gpio_toggle(pin_port_to_gpio(pin.port), (1 << pin.pin));
+}
 
-}*/
+bool io_pin_read(kit_pin pin) 
+{
+	bool val = gpio_port_read(pin_port_to_gpio(pin.port)) & (1 << pin.pin);
+	return val ^ pin.isinverse;
+}
